@@ -33,4 +33,30 @@ export class TrainService {
       where: { id },
     });
   }
+
+  async update(id: string, updateTrainDto: CreateTrainDto): Promise<Train | null> {
+    const train = await this.prisma.train.update({
+      where: { id },
+      data: {
+        departureCity: updateTrainDto.departureCity,
+        arrivalCity: updateTrainDto.arrivalCity,
+        departureTime: new Date(updateTrainDto.departureTime),
+        arrivalTime: new Date(updateTrainDto.arrivalTime),
+        price: updateTrainDto.price,
+        availableSeats: updateTrainDto.availableSeats,
+      },
+    });
+    return train;
+  }
+
+  async remove(id: string): Promise<boolean> {
+    try {
+      await this.prisma.train.delete({
+        where: { id },
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
