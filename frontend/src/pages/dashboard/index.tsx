@@ -4,6 +4,9 @@ import Header from "@/shared/header/header";
 import useUserProfile from "@/hooks/useUserProfile";
 import { useDebounceEffect } from "@/hooks/useDebouceEffect";
 import { format } from 'date-fns';
+import { useRouter } from "next/navigation";
+import useDeleteTrain from "@/hooks/useDeleteTrain";
+import useTrainStore from "@/stores/trainStore";
 
 const Dashboard = () => {
   const [departureCity, setDepartureCity] = useState("");
@@ -11,6 +14,7 @@ const Dashboard = () => {
   const [sort, setSort] = useState("");
   const [searchTriggered, setSearchTriggered] = useState(false);
   const { user } = useUserProfile();
+  const router = useRouter();
 
   const [debouncedDepartureCity, setDebouncedDepartureCity] = useState(departureCity);
   const [debouncedArrivalCity, setDebouncedArrivalCity] = useState(arrivalCity);
@@ -21,6 +25,10 @@ const Dashboard = () => {
   const formatTime = (time: string) => {
     const parsedTime = new Date(time);
     return format(parsedTime, 'yyyy-MM-dd HH:mm');
+  };
+
+  const handleEditTrain = (trainId: string) => {
+    router.push(`/edit-train/${trainId}`);
   };
 
   useDebounceEffect(() => {
@@ -39,6 +47,13 @@ const Dashboard = () => {
     setSearchTriggered(true);
     refetch();
   };
+
+  const { handleDeleteTrain } = useDeleteTrain();
+
+  const onDelete = (id: string) => {
+    handleDeleteTrain(id);
+    refetch();
+  }
 
   return (
     <>
@@ -97,18 +112,27 @@ const Dashboard = () => {
                     Time: {formatTime(train.departureTime)} - {formatTime(train.arrivalTime)}
                   </p>
                   <button
-                      onClick={() => handleEditTrain(train.id)}
-                      className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition"
-                    >
-                      Reserve
-                    </button>
+                    onClick={() => handleEditTrain(train.id)}
+                    className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition"
+                  >
+                    Reserve
+                  </button>
                   {user?.role === "ADMIN" && (
-                    <button
-                      onClick={() => handleEditTrain(train.id)}
-                      className="mt-4 px-6 py-2 bg-green-500 text-white font-semibold rounded-md shadow-md hover:bg-green-600 transition"
-                    >
-                      Change
-                    </button>
+                    <>
+                      <button
+                        onClick={() => handleEditTrain(train.id)}
+                        className="mt-4 px-6 py-2 bg-green-500 text-white font-semibold rounded-md shadow-md hover:bg-green-600 transition"
+                      >
+                        Change
+                      </button>
+                      <button
+                        onClick={() => onDelete(train.id)}
+                        className="mt-4 px-6 py-2 bg-red-700 text-white font-semibold rounded-md shadow-md hover:bg-red-800 transition"
+                      >
+                        Delete
+                      </button>
+                    </>
+
                   )}
                 </li>
               ))}
