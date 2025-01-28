@@ -14,19 +14,32 @@ datasource db {
 }
 
 model User {
-  id              String   @id @default(uuid())
-  email           String   @unique
-  password        String
-  fullname        String
-  phoneNumber     String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  verified        Boolean  @default(false)
-  verifyCode      Int?
-  role            Role     @default(USER)
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  fullname    String
+  phoneNumber String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  verified    Boolean  @default(false)
+  verifyCode  Int?
+  role        Role     @default(USER)
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+model Train {
+  id             String   @id @default(uuid())
+  departureCity  String
+  arrivalCity    String
+  departureTime  DateTime
+  arrivalTime    DateTime
+  price          Float
+  availableSeats Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
