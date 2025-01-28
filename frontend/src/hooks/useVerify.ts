@@ -25,6 +25,7 @@ const useVerify = (): {
     },
     onError: (error: Error) => {
       console.error('Verification failed:', error.message);
+      alert(`Login failed: ${error.message}`);
     },
   });
 

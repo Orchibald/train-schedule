@@ -32,6 +32,7 @@ const useRegister = (): {
     },
     onError: (error: Error) => {
       console.error('Registration failed:', error.message);
+      alert(`Login failed: ${error.message}`);
     },
   });
 

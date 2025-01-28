@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useAuthStore } from '../stores/authStore';
 import { useRouter } from 'next/navigation';
 
@@ -9,7 +9,7 @@ export default function Home() {
   const { accessToken } = useAuthStore();
   const router = useRouter();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!accessToken) {
       router.push('/login');
     }

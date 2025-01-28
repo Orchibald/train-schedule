@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from '../utils/mainAxios';
+import { useAuthStore } from '@/stores/authStore';
 
 interface LoginResponse {
   accessToken: string;
@@ -15,13 +16,16 @@ const useLogin = (): {
   error: Error | null;
   accessToken: string | undefined;
 } => {
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      console.log('Login successful:', data.accessToken);
+      setAccessToken(data.accessToken);
     },
     onError: (error: Error) => {
       console.error('Login failed:', error.message);
+      alert(`Login failed: ${error.message}`);
     },
   });
 
