@@ -85,13 +85,7 @@ Make sure to replace the values with your actual database credentials and API ke
 
 ## Deployment
 
-The backend is deployed on Railway. Once the environment variables are configured properly and the backend is up and running locally, you can deploy it to Railway.
-
-### Steps to deploy on Railway:
-
-1. Ensure your backend is connected to the Railway project.
-2. Set up the PostgreSQL database on Railway and connect it via the `.env` file.
-3. Push your code to the Railway deployment platform.
+The backend is deployed on Railway. Once the environment variables are configured properly and the backend is up and running locally.
 
 ## Built With
 
