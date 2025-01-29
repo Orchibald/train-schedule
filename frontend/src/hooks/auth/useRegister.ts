@@ -1,5 +1,5 @@
+import mainAxios from '@/utils/mainAxios';
 import { useMutation } from '@tanstack/react-query';
-import axios from '../utils/mainAxios';
 
 interface RegisterResponse {
   message: string;
@@ -16,7 +16,7 @@ const register = async ({
   fullname: string;
   phoneNumber: string;
 }): Promise<RegisterResponse> => {
-  const response = await axios.post('/auth/register', { email, password, fullname, phoneNumber });
+  const response = await mainAxios.post('/auth/register', { email, password, fullname, phoneNumber });
   return response.data;
 };
 

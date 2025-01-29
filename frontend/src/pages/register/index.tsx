@@ -3,9 +3,9 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import useRegister from '../../hooks/useRegister';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import useRegister from '@/hooks/auth/useRegister';
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),

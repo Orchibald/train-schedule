@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import useCreateTrain from '../../hooks/useCreateTrain';
+import useCreateTrain from '../../hooks/trains/useCreateTrain';
 import { useRouter } from 'next/navigation';
 
 const schema = yup.object().shape({

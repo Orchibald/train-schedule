@@ -1,12 +1,12 @@
+import mainAxios from '@/utils/mainAxios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from '../utils/mainAxios';
 
 interface VerifyResponse {
   message: string;
 }
 
 const verify = async ({ email, code }: { email: string; code: number }): Promise<VerifyResponse> => {
-  const response = await axios.post('/auth/verify', { email, code });
+  const response = await mainAxios.post('/auth/verify', { email, code });
   return response.data;
 };
 

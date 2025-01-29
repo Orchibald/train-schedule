@@ -13,7 +13,13 @@ export interface User {
   id: string;
   email: string;
   fullname: string;
+  phoneNumber: string;
   role: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export enum Role {
+  ADMIN = "ADMIN",
+  USER = "USER"
 }

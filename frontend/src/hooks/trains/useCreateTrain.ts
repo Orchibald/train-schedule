@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from '../utils/mainAxios';
+import axios from '../../utils/mainAxios';
 import useTrainStore from '@/stores/trainStore';
 
 interface TrainData {

@@ -3,8 +3,8 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import useVerify from '../../hooks/useVerify';
 import { useRouter, useSearchParams } from 'next/navigation';
+import useVerify from '@/hooks/auth/useVerify';
 
 const schema = yup.object().shape({
   code: yup.number().required('Verification code is required').positive('Code must be positive').integer('Code must be an integer'),

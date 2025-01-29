@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import useUserProfile from "@/hooks/useUserProfile";
-import useTrainById from "@/hooks/useTrainById";
+import useUserProfile from "@/hooks/user/useUserProfile";
+import useTrainById from "@/hooks/trains/useTrainById";
 import mainAxios from "@/utils/mainAxios";
 
 const EditTrain = () => {

@@ -1,12 +1,14 @@
 import { useState } from "react";
-import useTrains from "@/hooks/useTrains";
-import Header from "@/shared/header/header";
-import useUserProfile from "@/hooks/useUserProfile";
+import useTrains from "@/hooks/trains/useTrains";
+import Header from "@/components/header/header";
+import useUserProfile from "@/hooks/user/useUserProfile";
 import { useDebounceEffect } from "@/hooks/useDebouceEffect";
 import { format } from 'date-fns';
 import { useRouter } from "next/navigation";
-import useDeleteTrain from "@/hooks/useDeleteTrain";
+import useDeleteTrain from "@/hooks/trains/useDeleteTrain";
 import useTrainStore from "@/stores/trainStore";
+import { Role, Train } from "@/utils/types";
+import { useBookingStore } from "@/stores/bookingStore";
 
 const Dashboard = () => {
   const [departureCity, setDepartureCity] = useState("");
@@ -25,6 +27,12 @@ const Dashboard = () => {
   const formatTime = (time: string) => {
     const parsedTime = new Date(time);
     return format(parsedTime, 'yyyy-MM-dd HH:mm');
+  };
+
+  const { addBooking } = useBookingStore();
+
+  const handleReserve = (train: Train) => {
+    addBooking(train);
   };
 
   const handleEditTrain = (trainId: string) => {
@@ -112,12 +120,12 @@ const Dashboard = () => {
                     Time: {formatTime(train.departureTime)} - {formatTime(train.arrivalTime)}
                   </p>
                   <button
-                    onClick={() => handleEditTrain(train.id)}
+                    onClick={() => handleReserve(train)}
                     className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition"
                   >
                     Reserve
                   </button>
-                  {user?.role === "ADMIN" && (
+                  {user?.role === Role.ADMIN && (
                     <>
                       <button
                         onClick={() => handleEditTrain(train.id)}
