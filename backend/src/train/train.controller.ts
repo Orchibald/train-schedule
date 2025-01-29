@@ -1,9 +1,12 @@
-import { Controller, Post, Get, Param, Body, NotFoundException, Delete, Put } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, NotFoundException, Delete, Put, Query } from '@nestjs/common';
 import { TrainService } from './train.service';
 import { CreateTrainDto } from './dto/create-train.dto';
 import { Train } from '@prisma/client';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from '@prisma/client';
+import { FilterTrainsDto } from './dto/filter-trains.dto';
+import { PaginationDto } from './dto/pagination.dto';
+import { UpdateTrainDto } from './dto/update-train.dto';
 
 @Controller('trains')
 export class TrainController {
@@ -16,9 +19,12 @@ export class TrainController {
   }
 
   @Get()
-  async findAll(): Promise<Train[]> {
-    return this.trainService.findAll();
+  async findAll(
+    @Query() filterTrainsDto: FilterTrainsDto,  
+  ): Promise<Train[]> {
+    return this.trainService.findAll(filterTrainsDto);
   }
+  
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Train> {
@@ -33,9 +39,9 @@ export class TrainController {
   @Roles(Role.ADMIN)
   async update(
     @Param('id') id: string,
-    @Body() createTrainDto: CreateTrainDto,
+    @Body() updateTrainDto: UpdateTrainDto,
   ): Promise<Train> {
-    const updatedTrain = await this.trainService.update(id, createTrainDto);
+    const updatedTrain = await this.trainService.update(id, updateTrainDto);
     if (!updatedTrain) {
       throw new NotFoundException(`Train with id ${id} not found`);
     }

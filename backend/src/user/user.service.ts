@@ -2,6 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { PatchUserDto } from './dto/patch-user.dto';
 
 @Injectable()
 export class UserService {
@@ -39,5 +40,13 @@ export class UserService {
       data,
     });
   }
+
+  async updateUserById(id: string, data: PatchUserDto) {
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    });
+  }
+  
 }
 
