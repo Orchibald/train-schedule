@@ -1,8 +1,8 @@
-import { useAuthStore } from '@/stores/authStore'; // Імпорт Zustand store
+import { useAuthStore } from '@/stores/authStore';
 import axios from 'axios';
 
 const mainAxios = axios.create({
-  baseURL: process.env.SERVER_URL || 'http://localhost:3030',
+  baseURL: process.env.SERVER_URL || 'https://train-backend-production-a712.up.railway.app',
   headers: {
     'Content-Type': 'application/json',
   },
