@@ -2,6 +2,11 @@
 
 This project is a full-stack application for managing train schedules.
 
+## Link
+[https://train-frontend-smoky.vercel.app/]
+
+SERVER_URL=https://train-backend-production-a712.up.railway.app
+
 ## Clone the Repository
 
 To get started, clone the repository to your local machine:
